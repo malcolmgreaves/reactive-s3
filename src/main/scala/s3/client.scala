@@ -27,6 +27,8 @@ import scala.util.{ Failure, Success, Try }
  */
 class Bucket(val name: String, val client: AmazonS3) {
 
+  import Bucket.logger
+
   /**
    * Default batch size when iterating S3 keys
    */
@@ -185,6 +187,9 @@ class Bucket(val name: String, val client: AmazonS3) {
 object Bucket {
 
   def apply(name: String, client: AmazonS3) = new Bucket(name, client)
+
+  private lazy val logger = Log.getLogger[Bucket.type]
+
 }
 
 class S3Client(val underlying: AmazonS3) {
